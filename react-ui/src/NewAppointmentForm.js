@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Datetime from 'react-datetime'
+import './NewAppointment.css';
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 require('react-datetime');  
 
 class NewAppointmentForm extends Component{
@@ -26,18 +28,24 @@ class NewAppointmentForm extends Component{
 	render(){
 		return(
 			<div>
-				<form onSubmit={(event) => this.handleSubmit(event)}>
-					<span> Appointment title</span>
-					<input name='title' value={this.props.title}
-			          onChange={(event) => this.handleChange(event)} />
-			        <span> Start date</span>
-			        <Datetime value={this.props.dateAndTime}
+				<form onSubmit={(event) => this.handleSubmit(event)} className="NewAppointment">
+					<FormGroup controlId="titleInput">
+						<ControlLabel>Title</ControlLabel>
+						<FormControl name="title" type="text" placeholder="e.g: Meeting with John"value={this.props.title}
+			          onChange={(event) => this.handleChange(event)}/>
+					</FormGroup>	
+
+			        <ControlLabel> Start date</ControlLabel>
+			        <Datetime className="datetime" value={this.props.dateAndTime}
 			        onChange={(event) => this.setTime(event, 'dateAndTime')}/>
 
-			        <span> End date</span>
-			        <Datetime value={this.props.endDateAndTime}
+			        <ControlLabel>End date</ControlLabel>
+			        <Datetime className="datetime" value={this.props.endDateAndTime}
 			        onChange={(event) => this.setTime(event, 'endDateAndTime')}/>
-			        <input type='submit' value='Make Appointment' className='button'/>
+
+			        <FormGroup controlId="submit">
+      					<Button type="submit" bsStyle="primary">Create</Button>
+    				</FormGroup>
 		        </form>        
 			</div>	
 		)

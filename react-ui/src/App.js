@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import './react-datetime.css';
 import jQuery from 'jquery';
-import Appointment from './Appointment';
 import moment from 'moment';
-import NewAppointmentForm from './NewAppointmentForm'
-import AppointmentList from './AppointmentList'
+import NewAppointmentForm from './NewAppointmentForm';
+import AppointmentList from './AppointmentList';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class App extends Component {
     this.state = {
       appointments : [],
       title: '',
-      dateAndTime: moment().add('m',1),
-      endDateAndTime: moment().add('m',61)
+      dateAndTime: moment().add(1, 'm'),
+      endDateAndTime: moment().add(61, 'm')
     };
   }
 
@@ -56,15 +56,24 @@ class App extends Component {
       return (
       <div className="App">
         <div className="App-header">
-          <h3> Make a new appointment </h3>
         </div>
-        <div className="App-intro">
-          <NewAppointmentForm title={this.state.title}
-          dateAndTime={this.state.dateAndTime}
-          endDateAndTime={this.state.endDateAndTime}
-          onUserInput={(obj) => this.handleUserInput(obj)}
-          onFormSubmit={() => this.handleFormSubmit()}/>
-          <AppointmentList appointments={this.state.appointments}/>
+        <div className="app">
+          <Grid>
+            <Row>
+              <Col xs={12} sm={6} md={4}>
+                <h2>New appointment</h2>
+                <NewAppointmentForm title={this.state.title}
+                dateAndTime={this.state.dateAndTime}
+                endDateAndTime={this.state.endDateAndTime}
+                onUserInput={(obj) => this.handleUserInput(obj)}
+                onFormSubmit={() => this.handleFormSubmit()}/>
+              </Col>
+              <Col xs={12} sm={6} md={8}>
+                <h2>All appointments</h2>
+                <AppointmentList appointments={this.state.appointments}/>
+              </Col>
+            </Row>
+          </Grid>
         </div>
       </div>
     );

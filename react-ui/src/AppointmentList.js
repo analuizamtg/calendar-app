@@ -1,13 +1,16 @@
 import React from 'react'
 import Appointment from './Appointment'
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const AppointmentList = ({appointments}) => 
-  <div>
+  <ListGroup>
     {appointments.map(function(appointment) {
       return (
-        <Appointment appointment={appointment} key={appointment.id} />
+      	<ListGroupItem  key={appointment.id}>
+        	<Appointment appointment={appointment}/>
+        </ListGroupItem>
       )
     })}
-  </div>
+  </ListGroup>
 
 export default AppointmentList;
