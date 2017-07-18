@@ -31,7 +31,7 @@ class NewAppointmentForm extends Component{
 				<form onSubmit={(event) => this.handleSubmit(event)} className="NewAppointment">
 					<FormGroup controlId="titleInput">
 						<ControlLabel>Title</ControlLabel>
-						<FormControl name="title" type="text" placeholder="e.g: Meeting with John"value={this.props.title}
+						<FormControl name="title" type="text" placeholder="e.g: Meeting with John" value={this.props.title}
 			          onChange={(event) => this.handleChange(event)}/>
 					</FormGroup>	
 
@@ -44,7 +44,7 @@ class NewAppointmentForm extends Component{
 			        onChange={(event) => this.setTime(event, 'endDateAndTime')}/>
 
 			        <FormGroup controlId="submit">
-      					<Button type="submit" bsStyle="primary">Create</Button>
+      					<Button color="red" type="submit" bsStyle="primary">Create</Button>
     				</FormGroup>
 		        </form>        
 			</div>	

@@ -38,13 +38,21 @@ class App extends Component {
     });
   }
 
+ onDelete(id){
+  let items = this.state.appointments, data;
+   data = items.filter( el=> {
+       return el.id != id;
+   })
+   this.setState({appointments: data});
+}
+
   componentDidMount() {
     let _this = this;
 
     jQuery.ajax({
       url: '/appointments/',
       success(data) {
-        _this.setState({appointments: data});
+        _this.setState({appointments: data.appointments});
       }, error(err){
         alert("Could not fetch appointments from API");
       },
@@ -57,7 +65,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
         </div>
-        <div className="app">
+        <div className="App">
           <Grid>
             <Row>
               <Col xs={12} sm={6} md={4}>
@@ -70,7 +78,7 @@ class App extends Component {
               </Col>
               <Col xs={12} sm={6} md={8}>
                 <h2>All appointments</h2>
-                <AppointmentList appointments={this.state.appointments}/>
+                <AppointmentList appointments={this.state.appointments} onDelete={this.onDelete.bind(this)}/>
               </Col>
             </Row>
           </Grid>
