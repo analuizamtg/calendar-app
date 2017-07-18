@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var AppointmentSchema = new Schema({
-  title: { type: String, required: 'Appointment description is required' },
+  title: { type: String, required: 'Appointment title is required' },
   dateAndTime: { type: Date, required: true },
   endDateAndTime: { type: Date, required: true }
 });
@@ -22,12 +22,11 @@ AppointmentSchema.path('dateAndTime').validate(function (value, done) {
 
 
 AppointmentSchema.path('dateAndTime').validate(function (value, done) {
-  var isValid = true;
-  if (value < new Date()) {
-    isValid = false;
-  }
-  done(isValid);
-}, "The appointment can not be scheduled in the past");
+  done(value > new Date());
+}, "The appointment cannot be scheduled in the past");
 
+AppointmentSchema.path('endDateAndTime').validate(function (value, done) {
+  done(value > this.dateAndTime);
+}, "End date must be greater than start date");
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

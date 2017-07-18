@@ -13,7 +13,7 @@ mongoose.connect("mongodb://admin:admin@ds157342.mlab.com:57342/calendar");
 function start () {
  	var port = 5000;;
  	app.listen(port);
- 	console.log('Appoints service started on port ' + port);
+ 	console.log('Server started on port ' + port);
 }
 
 exports.app = app;
