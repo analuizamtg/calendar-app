@@ -1,18 +1,5 @@
 var Appointment = require('../models/appointment');
 
-function mapAppointmentToHal(dbAppointment) {
-    var halAppointment = {
-      _links: {
-        self: { href: '/appointments/' + dbAppointment.id },
-      },
-      id: dbAppointment.id,
-      title: dbAppointment.title,
-      dateAndTime: dbAppointment.dateAndTime,
-      endDateAndTime: dbAppointment.endDateAndTime
-    };
-    return halAppointment;
-  }
-
   exports.create = function (req, res) {
     var newAppointment = new Appointment(req.body);
     newAppointment.save(function (err, savedAppointment) {
@@ -26,7 +13,7 @@ function mapAppointmentToHal(dbAppointment) {
         return;
       }
       res.set('Location', '/appointments/' + savedAppointment.id);
-      res.status(200).send(mapAppointmentToHal(savedAppointment));
+      res.status(200).send(savedAppointment);
     });
   };
 
@@ -38,16 +25,7 @@ function mapAppointmentToHal(dbAppointment) {
   		if (appointments === null) {
         		res.status(404).send({ message: "Appointments' list was not found" });
       	}
-      var result = {
-        _links: {
-        self: { href: '/appointments/'}
-        },
-        appointments : []
-      }
-      appointments.forEach(function(appointment){
-        result.appointments.push(mapAppointmentToHal(appointment));
-      })
-      res.status(200).send(result);
+      res.status(200).send(appointments);
   	});
   };
     
