@@ -44,9 +44,10 @@ class App extends Component {
   }
 
   onDelete(id){
+    console.log(id);
     let items = this.state.appointments, data;
      data = items.filter( el=> {
-         return el.id != id;
+         return el._id != id;
      })
      this.setState({appointments: data});
      this.alert.show('Appointment successfully deleted', {
@@ -61,7 +62,7 @@ class App extends Component {
     jQuery.ajax({
       url: '/appointments/',
       success(data) {
-        _this.setState({appointments: data.appointments});
+        _this.setState({appointments: data});
       }, error(err){
         alert("Could not fetch appointments from API");
       },
