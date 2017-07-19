@@ -15,7 +15,7 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 app.use('/', routes.router);
 
-mongoose.connect("mongodb://admin:admin@ds157342.mlab.com:57342/calendar");
+mongoose.connect(process.env.MONGODB_URI);
 
 function start () {
  	app.listen(PORT);
