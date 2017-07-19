@@ -17,7 +17,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "chai": "^4.1.0",
+    "cors": "^2.8.4",
     "express": "^4.14.1",
+    "jquery": "^3.2.1",
     "mocha": "^3.4.2",
     "mongoose": "^4.11.2",
     "request": "^2.81.0",
