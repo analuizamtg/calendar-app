@@ -6,6 +6,7 @@ import moment from 'moment';
 import NewAppointmentForm from './NewAppointmentForm';
 import AppointmentList from './AppointmentList';
 import { Grid, Row, Col } from 'react-bootstrap';
+import AlertContainer from 'react-alert'
 
 class App extends Component {
   constructor(props) {
@@ -32,19 +33,27 @@ class App extends Component {
         alert(err.responseJSON.message);
       }
     }).done((data) => {
+        this.alert.show('Appointment successfully created!', {
+          time: 3000,
+          type: 'success',
+        })
         const appointments = this.state.appointments;
         appointments.push(data);
-        this.setState({appointments : appointments});
+        this.setState({appointments : appointments, title: '', dateAndTime: moment().add(1, 'm'), endDateAndTime: moment().add(61, 'm')});
     });
   }
 
- onDelete(id){
-  let items = this.state.appointments, data;
-   data = items.filter( el=> {
-       return el.id != id;
-   })
-   this.setState({appointments: data});
-}
+  onDelete(id){
+    let items = this.state.appointments, data;
+     data = items.filter( el=> {
+         return el.id != id;
+     })
+     this.setState({appointments: data});
+     this.alert.show('Appointment successfully deleted', {
+          time: 3000,
+          type: 'success',
+     })
+  }
 
   componentDidMount() {
     let _this = this;
@@ -63,8 +72,8 @@ class App extends Component {
   render() {
       return (
       <div className="App">
-        <div className="App-header">
-        </div>
+        <AlertContainer ref={a => this.alert = a} {...{position: 'top right'}} />
+        <div className="App-header"></div>
         <div className="App">
           <Grid>
             <Row>
