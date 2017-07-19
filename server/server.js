@@ -1,16 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path');
+const routes = require('./routes');
+
+const PORT = process.env.PORT || 5000;
 
 var app = express();
+
 app.use(cors());
 app.use(bodyParser());
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-const PORT = process.env.PORT || 5000;
 
-var routes = require('./routes');
 app.use('/', routes.router);
 
 mongoose.connect("mongodb://admin:admin@ds157342.mlab.com:57342/calendar");

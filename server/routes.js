@@ -1,7 +1,7 @@
-var express = require('express');
-var app = express();
-var router = express.Router();
-var appointments = require('./routes/appointments');
+const express = require('express');
+const app = express();
+const router = app.Router();
+const appointments = require('./routes/appointments');
 
 app.get('*', function(request, response) {
   response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
