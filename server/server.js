@@ -6,6 +6,8 @@ var cors = require('cors')
 var app = express();
 app.use(cors());
 app.use(bodyParser());
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+
 
 var routes = require('./routes');
 app.use('/', routes.router);
