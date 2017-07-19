@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "cacheDirectories": [
     "node_modules",
@@ -15,8 +16,12 @@
   ],
   "dependencies": {
     "body-parser": "^1.17.2",
+    "chai": "^4.1.0",
     "express": "^4.14.1",
-    "mongoose": "^4.11.2"
+    "mocha": "^3.4.2",
+    "mongoose": "^4.11.2",
+    "request": "^2.81.0",
+    "superagent": "^3.5.2"
   },
   "repository": {
     "type": "git",
