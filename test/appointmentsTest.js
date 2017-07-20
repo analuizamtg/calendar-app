@@ -1,6 +1,7 @@
 var expect    = require("chai").expect;
 var request = require("request");
 var superagent = require('superagent');
+var should = require('should');
 
 const BASE_URL = "http://localhost:5000/appointments";
 
@@ -10,7 +11,7 @@ const validAppointment = {
 	endDateAndTime: "Tue Jul 30 2048 19:21:31 GMT-0300"
 };
 
-describe("GET Request Test", function() {
+describe("GET /appointments test", function() {
 	it("Should return status 200", function(done) {
 		request(BASE_URL, function(error, response, body) {
 			expect(response.statusCode).to.equal(200);
@@ -19,18 +20,19 @@ describe("GET Request Test", function() {
 	});	
 });
 
-describe("POST Request Test", function() {
+describe("POST /appointments test", function() {
 	it("Should return status 200 if appoinment is valid", function(done) {
 		superagent.post(BASE_URL)
 		.set('Content-Type', 'application/json')
         .send(validAppointment)
         .end(function(err,response){
+        	response.header.location.should.startWith("/appointments");
             expect(response.statusCode).to.equal(200);
             done();
         });
     });
 
-	it("Should return status 422 if appoinment overlaps with other appointments", function(done) {
+	it("Should return status 422 and error message if appoinment overlaps with other appointments", function(done) {
 		superagent.post(BASE_URL)
 		.set('Content-Type', 'application/json')
         .send(validAppointment)
@@ -41,7 +43,7 @@ describe("POST Request Test", function() {
         });
     });
 
-	it("Should return status 422 if appoinment doesn't have a title", function(done) {
+	it("Should return status 422 and error message if appoinment doesn't have a title", function(done) {
 		var invalidAppointment = {
 			title: "",
 			dateAndTime: "Tue Jul 20 2018 17:21:31 GMT-0300",
@@ -57,7 +59,7 @@ describe("POST Request Test", function() {
         });
     });
 
-	it("Should return status 422 if appoinment's date is in the past", function(done) {
+	it("Should return status 422 and error message if appoinment's date is in the past", function(done) {
 		var invalidAppointment = {
 			title: "Meeting",
 			dateAndTime: new Date("Tue Jul 30 2016 17:21:31 GMT-0300"),
@@ -73,7 +75,7 @@ describe("POST Request Test", function() {
         });
     });
 
-	it("Should return status 422 if appoinment has end date before start date", function(done) {
+	it("Should return status 422 and error message if appoinment has end date before start date", function(done) {
 		var invalidAppointment = {
 			title: "Meeting",
 			dateAndTime: "Tue Jul 30 2016 17:21:31 GMT-0300",
@@ -90,7 +92,7 @@ describe("POST Request Test", function() {
     });
 });		
 
-describe("DELETE Request Test", function() {
+describe("DELETE /appointments/:id test", function() {
 	it("Should delete the last inserted appointment", function(done) {
 		//Fetch appointments first and then deletes the last inserted.
 		request(BASE_URL, function(error, response, body) {
