@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
-import './react-datetime.css';
-import jQuery from 'jquery';
-import moment from 'moment';
-import NewAppointmentForm from './NewAppointmentForm';
-import AppointmentList from './AppointmentList';
+import './AppointmentScheduler.css';
+import $ from 'jquery';
+import NewAppointmentForm from '../components/NewAppointmentForm';
+import AppointmentList from '../components/AppointmentList';
 import { Grid, Row, Col } from 'react-bootstrap';
 import AlertContainer from 'react-alert'
 
-class App extends Component {
+class AppointmentScheduler extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +27,7 @@ class App extends Component {
   deleteAppointment(id){
     let items = this.state.appointments, data;
      data = items.filter( el=> {
-         return el._id != id;
+         return el._id !== id;
      })
      this.setState({appointments: data});
      this.alert.show('Appointment successfully deleted', {
@@ -41,7 +39,7 @@ class App extends Component {
   componentDidMount() {
     let _this = this;
 
-    jQuery.ajax({
+    $.ajax({
       url: '/appointments/',
       success(data) {
         _this.setState({appointments: data});
@@ -53,7 +51,7 @@ class App extends Component {
   }
 
   render() {
-      return (
+    return (
       <div className="App">
         <AlertContainer ref={a => this.alert = a} {...{position: 'top right'}} />
         <div className="App-header"></div>
@@ -76,4 +74,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default AppointmentScheduler;

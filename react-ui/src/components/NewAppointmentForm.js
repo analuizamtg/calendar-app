@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Datetime from 'react-datetime'
-import './NewAppointment.css';
+import "../../node_modules/react-datetime/css/react-datetime.css";
+import './NewAppointmentForm.css';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import moment from 'moment';
-import jQuery from 'jquery';
+import $ from 'jquery';
 require('react-datetime');  
 
 class NewAppointmentForm extends Component{
@@ -20,7 +21,7 @@ class NewAppointmentForm extends Component{
 	handleSubmit(event) {
     	event.preventDefault();
     	const appointment = {title: this.state.title, dateAndTime: String(this.state.dateAndTime), endDateAndTime: String(this.state.endDateAndTime)};
-	    jQuery.ajax({
+	    $.ajax({
 	      type: 'POST',
 	      url: '/appointments/',
 	      data: appointment,
@@ -28,6 +29,7 @@ class NewAppointmentForm extends Component{
 	        alert(err.responseJSON.message);
 	      }
 	    }).done((data) => {
+	    	this.setState({title: '', dateAndTime: moment().add(1, 'm'), endDateAndTime: moment().add(61, 'm')});
 	    	this.props.onFormSubmit(data);
 	    });
   	}
@@ -41,7 +43,7 @@ class NewAppointmentForm extends Component{
 
   	setTime(event, name) {
     	const obj = {};
-    	if(obj[name] = event.toDate()) {
+    	if(obj[name] === event.toDate()) {
       		this.setState(obj);
     	}
   	}  	

@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from './Util'
+import { formatDate } from '../Utils/Util'
 
 const Appointment = ({appointment}) => 
   <div>

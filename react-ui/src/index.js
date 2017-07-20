@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AppointmentScheduler from './containers/AppointmentScheduler';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <AppointmentScheduler />,
   document.getElementById('root')
 );
