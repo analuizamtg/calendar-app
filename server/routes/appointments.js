@@ -13,7 +13,7 @@ var Appointment = require('../models/appointment');
         return;
       }
       res.set('Location', '/appointments/' + savedAppointment.id);
-      res.status(200).send(savedAppointment);
+      res.status(200).json(savedAppointment);
     });
   };
 
@@ -25,7 +25,7 @@ var Appointment = require('../models/appointment');
   		if (appointments === null) {
         		res.status(404).send({ message: "Appointments' list was not found" });
       	}
-      res.status(200).send(appointments);
+      res.status(200).json(appointments);
   	});
   };
     
