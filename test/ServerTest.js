@@ -94,8 +94,8 @@ describe("DELETE Request Test", function() {
 	it("Should delete the last inserted appointment", function(done) {
 		//Fetch appointments first and then deletes the last inserted.
 		request(BASE_URL, function(error, response, body) {
-			var appointments = JSON.parse(response.body).appointments;
-			var lastInsertedAppointmentId = appointments[appointments.length - 1].id;
+			var appointments = JSON.parse(response.body);
+			var lastInsertedAppointmentId = appointments[appointments.length - 1]._id;
 					superagent.del(BASE_URL + "/" + lastInsertedAppointmentId)
 			        .end(function(err,res){
 			        	expect(res.statusCode).to.equal(200);
