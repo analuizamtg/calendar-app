@@ -2,26 +2,47 @@ import React, { Component } from 'react'
 import Datetime from 'react-datetime'
 import './NewAppointment.css';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import moment from 'moment';
+import jQuery from 'jquery';
 require('react-datetime');  
 
 class NewAppointmentForm extends Component{
 
+	constructor(props) {
+	    super(props);
+	    this.state = {
+	      title: '',
+	      dateAndTime: moment().add(1, 'm'),
+	      endDateAndTime: moment().add(61, 'm')
+	    };
+  	}
+
 	handleSubmit(event) {
     	event.preventDefault();
-    	this.props.onFormSubmit();
+    	const appointment = {title: this.state.title, dateAndTime: String(this.state.dateAndTime), endDateAndTime: String(this.state.endDateAndTime)};
+	    jQuery.ajax({
+	      type: 'POST',
+	      url: '/appointments/',
+	      data: appointment,
+	      error(err){
+	        alert(err.responseJSON.message);
+	      }
+	    }).done((data) => {
+	    	this.props.onFormSubmit(data);
+	    });
   	}
 
   	handleChange (event) {
     	const name = event.target.name;
     	const obj = {};
     	obj[name] = event.target.value;
-    	this.props.onUserInput(obj);
+    	this.setState(obj);
   	}
 
   	setTime(event, name) {
     	const obj = {};
     	if(obj[name] = event.toDate()) {
-      		this.props.onUserInput(obj);
+      		this.setState(obj);
     	}
   	}  	
 
@@ -31,16 +52,16 @@ class NewAppointmentForm extends Component{
 				<form onSubmit={(event) => this.handleSubmit(event)} className="NewAppointment">
 					<FormGroup controlId="titleInput">
 						<ControlLabel>Title</ControlLabel>
-						<FormControl name="title" type="text" placeholder="e.g: Meeting with John" value={this.props.title}
-			          onChange={(event) => this.handleChange(event)}/>
+						<FormControl name="title" type="text" placeholder="e.g: Meeting with John" value={this.state.title}
+			          	onChange={(event) => this.handleChange(event)}/>
 					</FormGroup>	
 
 			        <ControlLabel> Start date</ControlLabel>
-			        <Datetime className="datetime" value={this.props.dateAndTime}
+			        <Datetime className="datetime" value={this.state.dateAndTime}
 			        onChange={(event) => this.setTime(event, 'dateAndTime')}/>
 
 			        <ControlLabel>End date</ControlLabel>
-			        <Datetime className="datetime" value={this.props.endDateAndTime}
+			        <Datetime className="datetime" value={this.state.endDateAndTime}
 			        onChange={(event) => this.setTime(event, 'endDateAndTime')}/>
 
 			        <FormGroup controlId="submit">

@@ -12,39 +12,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appointments : [],
-      title: '',
-      dateAndTime: moment().add(1, 'm'),
-      endDateAndTime: moment().add(61, 'm')
+      appointments : []
     };
   }
 
-  handleUserInput (obj) {
-    this.setState(obj);
+  addNewAppointment (data) {
+     const appointments = this.state.appointments;
+     appointments.push(data);
+     this.setState({appointments : appointments});
+     this.alert.show('Appointment successfully created!', {
+         time: 3000,
+         type: 'success',
+     })
   }
 
-  handleFormSubmit () {
-    const appointment = {title: this.state.title, dateAndTime: String(this.state.dateAndTime), endDateAndTime: String(this.state.endDateAndTime)};
-    jQuery.ajax({
-      type: 'POST',
-      url: '/appointments/',
-      data: appointment,
-      error(err){
-        alert(err.responseJSON.message);
-      }
-    }).done((data) => {
-        this.alert.show('Appointment successfully created!', {
-          time: 3000,
-          type: 'success',
-        })
-        const appointments = this.state.appointments;
-        appointments.push(data);
-        this.setState({appointments : appointments, title: '', dateAndTime: moment().add(1, 'm'), endDateAndTime: moment().add(61, 'm')});
-    });
-  }
-
-  onDelete(id){
-    console.log(id);
+  deleteAppointment(id){
     let items = this.state.appointments, data;
      data = items.filter( el=> {
          return el._id != id;
@@ -80,15 +62,11 @@ class App extends Component {
             <Row>
               <Col xs={12} sm={6} md={4}>
                 <h2>New appointment</h2>
-                <NewAppointmentForm title={this.state.title}
-                dateAndTime={this.state.dateAndTime}
-                endDateAndTime={this.state.endDateAndTime}
-                onUserInput={(obj) => this.handleUserInput(obj)}
-                onFormSubmit={() => this.handleFormSubmit()}/>
+                <NewAppointmentForm onFormSubmit={this.addNewAppointment.bind(this)}/>
               </Col>
               <Col xs={12} sm={6} md={8}>
                 <h2>All appointments</h2>
-                <AppointmentList appointments={this.state.appointments} onDelete={this.onDelete.bind(this)}/>
+                <AppointmentList appointments={this.state.appointments} onDelete={this.deleteAppointment.bind(this)}/>
               </Col>
             </Row>
           </Grid>
