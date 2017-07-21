@@ -1,5 +1,5 @@
 import React from 'react'
-import Appointment from './appointment'
+import Appointment from './Appointment'
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default function AppointmentList({appointments, deleteAppointment, error}){
