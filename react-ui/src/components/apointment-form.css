@@ -1,4 +1,4 @@
-.NewAppointment  {
+.NewAppointment .label {
   text-align: left;
 }
 
@@ -14,4 +14,3 @@
 .NewAppointment .form-group input[type=text] .datetime{
   width: calc(100% - 60px);
 }
-
