@@ -1,8 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Appointment from './appointment'
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
-export default function AppointmentList({appointments, deleteAppointment}){
+export default function AppointmentList({appointments, deleteAppointment, error}){
+
+    const timeoutMessage = (
+      <div>
+        Could not fetch appointments! Is the server back-end running?
+      </div>  
+    )
+
       let list = appointments.map(function(appointment) {
           return (
             <ListGroupItem  key={appointment._id}>
@@ -15,7 +22,7 @@ export default function AppointmentList({appointments, deleteAppointment}){
       return (
         <ListGroup>
           {list}
+          {error && timeoutMessage}
         </ListGroup>  
         )
-
 }

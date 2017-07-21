@@ -40,7 +40,7 @@ class AppointmentScheduler extends Component {
               </Col>
               <Col xs={12} sm={6} md={8}>
                 <h2>All appointments</h2>
-                <AppointmentList appointments={this.props.appointments} deleteAppointment={this.props.deleteAppointment}/>
+                <AppointmentList appointments={this.props.appointments} error={this.props.error} deleteAppointment={this.props.deleteAppointment} />
               </Col>
             </Row>
           </Grid>

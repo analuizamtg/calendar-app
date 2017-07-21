@@ -1,6 +1,5 @@
 import React from 'react'
 import { formatDate } from '../Utils/Util'
-import { Button } from 'react-bootstrap';
 
 export default function Appointment ({appointment, deleteAppointment}) {
 	return (

@@ -1,7 +1,7 @@
 import moment from 'moment';
 const defaultState = {
   appointments: [],
-  error: {}
+  error: ""
 }
 
 export default (state=defaultState, action={}) => {
@@ -10,6 +10,12 @@ export default (state=defaultState, action={}) => {
       return {...state,
               appointments: action.payload.data };
     } 
+    case 'FETCH_APPOINTMENTS_REJECTED': {
+      return {
+        ...state,
+        error : action.payload.response.data
+      };  
+    }
     case 'SAVE_APPOINTMENT_FULFILLED': {
       return {
         ...state,
