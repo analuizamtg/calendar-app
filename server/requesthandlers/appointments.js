@@ -43,7 +43,7 @@ var Appointment = require('../models/appointment');
             res.status(400).send(err);
             return;
           } 
-            res.status(200).json({message: "Appointment was sucessfully deleted!"})
+            res.status(200).json(appointment);
         });
       }
     });
