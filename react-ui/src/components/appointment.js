@@ -1,7 +1,7 @@
 import React from 'react'
 import { formatDate } from '../Utils/Util'
 
-export default function Appointment ({appointment, deleteAppointment}) {
+export default function Appointment ({appointment}) {
 	return (
 		<div>
 	        <h3>{appointment.title}</h3>

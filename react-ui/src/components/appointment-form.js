@@ -11,24 +11,20 @@ class AppointmentForm extends Component{
     <Datetime onChange={input.onChange}  {...input} />
     );
 
-    const FormControlInput = ({ input, label}) => (
-      <input className="form-control" placeholder="e.g: Meeting with John" onChange={input.onChange} {...input} />
-    );
-
     const { handleSubmit } = this.props
 
     return (
       <form onSubmit={ handleSubmit } className="newAppointment">
         <div>
             <label> Title </label>
-            <Field name="title" component={FormControlInput} type="text" />
+            <Field name="title" className="form-control" component={"input"} type="text" />
         </div>
         <div>
           <label>Start Date</label>
           <Field name="dateAndTime" component={DateInput} label="Date & Time Starting" />
         </div>
         <div>
-          <label className="appointmentLabel">End Date</label>
+          <label>End Date</label>
           <Field name="endDateAndTime" component={DateInput} label="Date & Time Starting" />
         </div>
         <Button type="submit" bsStyle="primary">Create</Button>

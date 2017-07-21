@@ -24,5 +24,5 @@ export default function AppointmentList({appointments, deleteAppointment, error}
           {list}
           {error.fetch && timeoutMessage}
         </ListGroup>  
-        )
+      )
 }

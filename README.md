@@ -39,7 +39,7 @@ npm install
 # Start the server
 npm start
 ```
-## Run tests
+## Automated tests
 
 ### First, run the API Server
 
