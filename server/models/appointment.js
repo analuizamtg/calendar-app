@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var AppointmentSchema = new Schema({
   title: { type: String, required: 'Appointment title is required' },
-  dateAndTime: { type: Date, required: true },
-  endDateAndTime: { type: Date, required: true }
+  dateAndTime: { type: Date, required: 'Appointment start date is required' },
+  endDateAndTime: { type: Date, required: 'Appointment end date is required' }
 });
 
 AppointmentSchema.path('dateAndTime').validate(function (value, done) {
