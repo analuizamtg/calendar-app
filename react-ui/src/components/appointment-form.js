@@ -2,17 +2,17 @@ import React, { Component }  from 'react'
 import { Field, reduxForm } from 'redux-form'
 import Datetime from 'react-datetime'
 import "../../node_modules/react-datetime/css/react-datetime.css";
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class AppointmentForm extends Component{
 
   render(){
     const DateInput = ({ input, label}) => (
-    <Datetime onChange={input.onChange}  />
+    <Datetime onChange={input.onChange}  {...input} />
     );
 
     const FormControlInput = ({ input, label}) => (
-      <FormControl onChange={input.onChange} {...input} />
+      <input className="form-control" placeholder="e.g: Meeting with John" onChange={input.onChange} {...input} />
     );
 
     const { handleSubmit } = this.props
@@ -20,10 +20,8 @@ class AppointmentForm extends Component{
     return (
       <form onSubmit={ handleSubmit } className="newAppointment">
         <div>
-          <FormGroup>
-            <ControlLabel> Title </ControlLabel>
+            <label> Title </label>
             <Field name="title" component={FormControlInput} type="text" />
-          </FormGroup>
         </div>
         <div>
           <label>Start Date</label>

@@ -1,7 +1,6 @@
-import moment from 'moment';
 const defaultState = {
   appointments: [],
-  error: ""
+  errors: {}
 }
 
 export default (state=defaultState, action={}) => {
@@ -13,7 +12,7 @@ export default (state=defaultState, action={}) => {
     case 'FETCH_APPOINTMENTS_REJECTED': {
       return {
         ...state,
-        error : action.payload.response.data
+        errors : {fetch:  action.payload.response.data}
       };  
     }
     case 'SAVE_APPOINTMENT_FULFILLED': {
@@ -25,14 +24,8 @@ export default (state=defaultState, action={}) => {
     case 'SAVE_APPOINTMENT_REJECTED': {
         return {
         ...state,
-        error : action.payload.response.data
+        errors : {save: action.payload.response.data}
       };
-    }
-    case 'NEW_APPOINTMENT': {
-      return {
-        ...state,
-        appointment:  {title: '', dateAndTime: moment(), endDateAndTime: moment()}
-      }
     }
     case 'DELETE_APPOINTMENT_FULFILLED': {
         const _id = action.payload.data._id;

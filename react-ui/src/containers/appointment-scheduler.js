@@ -11,15 +11,15 @@ class AppointmentScheduler extends Component {
 
   submit = (appointment) => {
     return this.props.saveAppointment(appointment)
-      .then(response => {
+    .then(response => {
          this.alert.show('Appointment successfully created!', {
          time: 3000,
          type: 'success',
-     })
-      })
-      .catch(err => {
-         alert(this.props.error.message);
-       })
+         })
+    })
+    .catch(err => {
+      alert(this.props.errors.save.message);
+    })
   }
 
   componentDidMount() {
@@ -36,11 +36,11 @@ class AppointmentScheduler extends Component {
             <Row>
               <Col xs={12} sm={6} md={4}>
                 <h2>New appointment</h2>
-                <AppointmentForm appointment={this.props.appointment} onSubmit={this.submit}/>
+                <AppointmentForm onSubmit={this.submit}/>
               </Col>
               <Col xs={12} sm={6} md={8}>
                 <h2>All appointments</h2>
-                <AppointmentList appointments={this.props.appointments} error={this.props.error} deleteAppointment={this.props.deleteAppointment} />
+                <AppointmentList appointments={this.props.appointments} error={this.props.errors} deleteAppointment={this.props.deleteAppointment} />
               </Col>
             </Row>
           </Grid>
@@ -52,8 +52,8 @@ class AppointmentScheduler extends Component {
 
 function mapStateToProps(state) {
   return {
-      appointments : state.appointmentStore.appointments, 
-      error: state.appointmentStore.error
+      appointments : state.appointmentStore.appointments,
+      errors: state.appointmentStore.errors
   }
 }
 

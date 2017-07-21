@@ -1,5 +1,5 @@
 import React from 'react'
-import Appointment from './Appointment'
+import Appointment from './appointment'
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default function AppointmentList({appointments, deleteAppointment, error}){
@@ -22,7 +22,7 @@ export default function AppointmentList({appointments, deleteAppointment, error}
       return (
         <ListGroup>
           {list}
-          {error && timeoutMessage}
+          {error.fetch && timeoutMessage}
         </ListGroup>  
         )
 }
