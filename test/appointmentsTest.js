@@ -32,17 +32,6 @@ describe("POST /appointments test", function() {
         });
     });
 
-	it("Should return status 422 and error message if appoinment overlaps with other appointments", function(done) {
-		superagent.post(BASE_URL)
-		.set('Content-Type', 'application/json')
-        .send(validAppointment)
-        .end(function(err,response){
-        	expect(response.body.errors.dateAndTime.message).to.equal("The appointment overlaps with other appointments");
-            expect(response.statusCode).to.equal(422);
-            done();
-        });
-    });
-
 	it("Should return status 422 and error message if appoinment doesn't have a title", function(done) {
 		var invalidAppointment = {
 			title: "",
@@ -55,6 +44,38 @@ describe("POST /appointments test", function() {
         .end(function(err,response){
         	expect(response.statusCode).to.equal(422);
         	expect(response.body.errors.title.message).to.equal("Appointment title is required");
+            done();
+        });
+    });
+
+    it("Should return status 422 and error message if appoinment doesn't have a start date", function(done) {
+		var invalidAppointment = {
+			title: "Meeting",
+			dateAndTime: "",
+			endDateAndTime: "Tue Jul 20 2018 18:21:31 GMT-0300"
+		}
+		superagent.post(BASE_URL)
+		.set('Content-Type', 'application/json')
+        .send(invalidAppointment)
+        .end(function(err,response){
+        	expect(response.statusCode).to.equal(422);
+        	expect(response.body.errors.dateAndTime.message).to.equal("Appointment start date is required");
+            done();
+        });
+    });
+
+    it("Should return status 422 and error message if appoinment doesn't have an end date", function(done) {
+		var invalidAppointment = {
+			title: "Meeting",
+			dateAndTime: "Tue Jul 20 2018 18:21:31 GMT-0300",
+			endDateAndTime: ""
+		}
+		superagent.post(BASE_URL)
+		.set('Content-Type', 'application/json')
+        .send(invalidAppointment)
+        .end(function(err,response){
+        	expect(response.statusCode).to.equal(422);
+        	expect(response.body.errors.endDateAndTime.message).to.equal("Appointment end date is required");
             done();
         });
     });
@@ -101,7 +122,7 @@ describe("DELETE /appointments/:id test", function() {
 					superagent.del(BASE_URL + "/" + lastInsertedAppointmentId)
 			        .end(function(err,res){
 			        	expect(res.statusCode).to.equal(200);
-			            expect(JSON.parse(res.text).message).to.equal("Appointment was sucessfully deleted!");
+			        	expect(res.body._id).to.equal(lastInsertedAppointmentId);
 			            done();
 			        });
       });	
