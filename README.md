@@ -2,16 +2,18 @@
 
 This is a calendar app for managing appointments.
 
+## Demo
+[Demo deployment](https://calendar-appointment.herokuapp.com/)
+
 ### Prerequisites
 
 To get the project up and running you need to have `node` and `npm` installed on your machine.
 
-## Demo
-[Demo deployment](https://intelligent-moliere-40740.herokuapp.com/)
-
 ## Run locally
 
 ### Run the API Server
+
+Set environment variable `MONGODB_URL` before starting in order to connect to MongoDB .
 
 In a terminal:
 
@@ -63,7 +65,9 @@ npm test
 
 ## Built With
 
-* [Create Next App](https://open.segment.com/create-next-app) - Boilerplate which uses [Next.js](https://github.com/zeit/next.js/) for server-side rendering, and [create-react-app](https://github.com/facebookincubator/create-react-app) to start a React/Redux project.
+* [Create-react-app](https://github.com/facebookincubator/create-react-app) to start a React/Redux project.
+* [NodeJS](https://nodejs.org/en/) to build the server API.
+* [MongoDB](https://www.mongodb.com/) to store appointments' data.
 
 
 ## Author
