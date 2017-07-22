@@ -8,7 +8,7 @@ class AppointmentForm extends Component{
 
   render(){
     const DateInput = ({ input, label}) => (
-    <Datetime onChange={input.onChange}  {...input} />
+      <Datetime onChange={input.onChange}  {...input} />
     );
 
     const { handleSubmit } = this.props

@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from '../Utils/Util'
+import { formatDate } from '../util'
 
 export default function Appointment ({appointment}) {
 	return (
