@@ -13,7 +13,7 @@ To get the project up and running you need to have `node` and `npm` installed on
 
 ### Run the API Server
 
-Set environment variable `MONGODB_URL` before starting in order to connect to MongoDB .
+Set environment variable `MONGODB_URI` before starting in order to connect to a local instance of MongoDB.
 
 In a terminal:
 
